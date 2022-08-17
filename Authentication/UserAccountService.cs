@@ -25,43 +25,21 @@ namespace MVCAuthentication.Authentication
             return ee;
 
         }
+        public static void SaveRegisterFrom(UserAccount ee)
+        {
+            SqlConnection con = DBHelper.GetConnection();
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SP_SaveRegistrationForm", con);
+            cmd.Parameters.AddWithValue("@Name", ee.UserName);
+
+            cmd.Parameters.AddWithValue("Password", ee.Password);
+            cmd.Parameters.AddWithValue("Role", ee.Role);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //private List<UserAccount> _users;
-
-        //    public UserAccountService()
-        //{
-        //    _users = new List<UserAccount>
-        //    {
-        //        new UserAccount { UserName = "admin" ,Password = "admin" ,Role = "Administrator"},
-        //        new UserAccount { UserName = "user", Password = "user", Role = "User" }
-        //    };
-        //}
-        //public UserAccount? GetByUserName(string username)
-        //{
-        //    return _users.FirstOrDefault(x => x.UserName == username);
-        //}
     }
 }
